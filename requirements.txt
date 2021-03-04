@@ -1,0 +1,7 @@
+-e git+https://github.com/superfell/Beatbox@14f35e83d2bca254406f003a5a8559d6cc42f56b#egg=beatbox
+click==7.1.2
+Flask==1.1.2
+itsdangerous==1.1.0
+Jinja2==2.11.3
+MarkupSafe==1.1.1
+Werkzeug==1.0.1
