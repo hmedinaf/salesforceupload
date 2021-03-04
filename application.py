@@ -7,13 +7,12 @@ import csv
 from flask import Flask, request, render_template, redirect, url_for, flash
 from werkzeug.utils import secure_filename
 
-UPLOADED_FILES_DEST="/home/ec2-user/environment/api_call/files"
-UPLOADED_FILES_URL="/static/files" 
-
 application = Flask(__name__)
 application.secret_key = "SecretKey1234"
 
-UPLOAD_FOLDER="/home/ec2-user/environment/api_call/files"
+#UPLOAD_FOLDER="/home/ec2-user/environment/api_call/files"
+path = os.getcwd()
+UPLOAD_FOLDER = os.path.join(path, 'files')
 application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 ALLOWED_EXTENSIONS = set(['txt', 'csv'])
@@ -57,10 +56,14 @@ def process_file(filename):
             if line_count==0:
                 line_count += 1
             else:
-                print("insertando: %s %s %s" % (line[0], line[1], line[2]))
+                flash("insertando: %s %s %s" % (line[0], line[1], line[2]))
                 new_lead(line[0], line[1], line[2])
                 line_count += 1
 
+@application.route('/')
+def main():
+    return ("Path %s" % UPLOAD_FOLDER)
+    
 @application.route('/upload')
 def upload_form():
     return render_template('upload.html')
@@ -87,8 +90,6 @@ def upload_file():
         else:
             flash('Allowed file types are txt, csv')
             return redirect(request.url)
-
-
 
 if __name__ == '__main__':
     host=os.getenv('IP', '0.0.0.0')
