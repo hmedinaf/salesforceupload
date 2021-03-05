@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+<!-- ---------------------------------------------------------------------- -->
+<!-- NOTA: Agregue el siguiente elemento <META> a su p�gina <HEAD>. Si es -->
+<!-- preciso, modifique el par�metro charset para especificar el conjunto -->
+<!-- de caracteres de su p�gina HTML. -->
+<!-- ---------------------------------------------------------------------- -->
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
+<!-- ---------------------------------------------------------------------- -->
+<!-- NOTA: Agregue el siguiente elemento <FORM> a su p�gina. -->
+<!-- ---------------------------------------------------------------------- -->
+
+<style type="text/css">
+.form-style-1 {
+	margin:10px auto;
+	max-width: 400px;
+	padding: 20px 12px 10px 20px;
+	font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.form-style-1 li {
+	padding: 0;
+	display: block;
+	list-style: none;
+	margin: 10px 0 0 0;
+}
+.form-style-1 label{
+	margin:0 0 3px 0;
+	padding:0px;
+	display:block;
+	font-weight: bold;
+}
+.form-style-1 input[type=text], 
+.form-style-1 input[type=date],
+.form-style-1 input[type=datetime],
+.form-style-1 input[type=number],
+.form-style-1 input[type=search],
+.form-style-1 input[type=time],
+.form-style-1 input[type=url],
+.form-style-1 input[type=email],
+textarea, 
+select{
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border:1px solid #BEBEBE;
+	padding: 7px;
+	margin:0px;
+	-webkit-transition: all 0.30s ease-in-out;
+	-moz-transition: all 0.30s ease-in-out;
+	-ms-transition: all 0.30s ease-in-out;
+	-o-transition: all 0.30s ease-in-out;
+	outline: none;	
+}
+.form-style-1 input[type=text]:focus, 
+.form-style-1 input[type=date]:focus,
+.form-style-1 input[type=datetime]:focus,
+.form-style-1 input[type=number]:focus,
+.form-style-1 input[type=search]:focus,
+.form-style-1 input[type=time]:focus,
+.form-style-1 input[type=url]:focus,
+.form-style-1 input[type=email]:focus,
+.form-style-1 textarea:focus, 
+.form-style-1 select:focus{
+	-moz-box-shadow: 0 0 8px #88D5E9;
+	-webkit-box-shadow: 0 0 8px #88D5E9;
+	box-shadow: 0 0 8px #88D5E9;
+	border: 1px solid #88D5E9;
+}
+.form-style-1 .field-divided{
+	width: 49%;
+}
+
+.form-style-1 .field-long{
+	width: 100%;
+}
+.form-style-1 .field-select{
+	width: 100%;
+}
+.form-style-1 .field-textarea{
+	height: 100px;
+}
+.form-style-1 input[type=submit], .form-style-1 input[type=button]{
+	background: #4B99AD;
+	padding: 8px 15px 8px 15px;
+	border: none;
+	color: #fff;
+}
+.form-style-1 input[type=submit]:hover, .form-style-1 input[type=button]:hover{
+	background: #4691A4;
+	box-shadow:none;
+	-moz-box-shadow:none;
+	-webkit-box-shadow:none;
+}
+.form-style-1 .required{
+	color:red;
+}
+</style>
+</head>
+
+<body>
+
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul class=flashes>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+
+
+<form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="post">
+
+<ul class="form-style-1">
+  <input name="oid" value="00D4x000005Sg0U" type="hidden">
+  <input name="retURL" value="{{ request.url }}/ok" type="hidden">
+
+
+    <li><label>Full Name <span class="required">*</span></label>
+    <input type="text" id="first_name" name="first_name" class="field-divided" placeholder="First" /> 
+    <input type="text" id="last_name" name="last_name" class="field-divided" placeholder="Last" /></li>
+    <li>
+        <label>Email <span class="required">*</span></label>
+        <input type="email" id="email" name="email" class="field-long" />
+    </li>
+    <li>
+        <label>Company <span class="required">*</span></label>
+        <input type="text" id="company" name="company" class="field-long" />
+    </li>
+    <li>
+        <label>Phone <span class="required">*</span></label>
+        <input type="text" id="phone" name="phone" class="field-long" />
+    </li>
+    <li>
+        <label>City <span class="required">*</span></label>
+        <input type="text" id="city" name="city" class="field-long" />
+    </li>
+    <li>
+        <label>State <span class="required">*</span></label>
+        <input type="text" id="state" name="state" class="field-long" />
+    </li>
+    <li>
+        <label>Zip Code <span class="required">*</span></label>
+        <input type="text" id="zip" name="zip" class="field-long" />
+    </li>
+
+    <li>
+        <input type="submit" value="Submit" />
+    </li>
+</ul>
+  <input name="lead_source" value="Web" type="hidden"><br>
+
+</form>
+<hr>
+<form method="post" action="/upload" enctype="multipart/form-data">
+    <dl>
+		<p>
+			<input type="file" name="file" autocomplete="off" required>
+		</p>
+    </dl>
+    <p>
+		<input type="submit" value="Submit">
+	</p>
+</form>
+
+</body>
+</html>

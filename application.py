@@ -3,6 +3,7 @@ import sys
 import beatbox
 import datetime
 import csv
+import json
 
 from flask import Flask, request, render_template, redirect, url_for, flash
 from werkzeug.utils import secure_filename
@@ -21,10 +22,14 @@ def allowed_file(filename):
 
 sf = beatbox._tPartnerNS
 
-# "salesforceusername and password"
-username = 'hmedfrias@resilient-narwhal-hdgymy.com'
-password = "H9Mekaaq"
-token    = 'cXHXhY4XKqZxa2TuAQcG2rcm'
+#Login credentials
+with open("login_td.json", "r") as login_file:
+    creds = json.load(login_file)
+
+username=creds['login']['username']
+password=creds['login']['password']
+token=creds['login']['token']
+                
 """connect and authenticate"""
 svc = beatbox.Client()
 svc.login(username, password+token)
@@ -56,14 +61,27 @@ def process_file(filename):
             if line_count==0:
                 line_count += 1
             else:
-                flash("insertando: %s %s %s" % (line[0], line[1], line[2]))
+                #flash("insertando: %s %s %s" % (line[0], line[1], line[2]))
                 new_lead(line[0], line[1], line[2])
                 line_count += 1
 
 @application.route('/')
 def main():
-    return ("Path %s" % UPLOAD_FOLDER)
-    
+    print ("Path %s" % UPLOAD_FOLDER)
+    return redirect(url_for('webtolead'))
+#    return redirect(url_for('upload_form'))
+
+
+@application.route('/webtolead')
+@application.route('/webtolead/<retcode>')
+def webtolead(retcode=None):
+    if retcode == None:
+        return render_template('webtolead.html')
+    else:
+        flash("Contact registered successfully.")
+        #return render_template('webtolead.html') #esta funcion va concatenando oks
+        return redirect(url_for('webtolead'))
+
 @application.route('/upload')
 def upload_form():
     return render_template('upload.html')
@@ -86,7 +104,7 @@ def upload_file():
             flash('File successfully uploaded: %s' % filename)
             """Dar de alta en Salesforce"""
             process_file(completefilename)
-            return redirect('/upload')
+            return redirect('/webtolead')
         else:
             flash('Allowed file types are txt, csv')
             return redirect(request.url)
