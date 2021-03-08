@@ -61,9 +61,15 @@ def process_file(filename):
             if line_count==0:
                 line_count += 1
             else:
-                #flash("insertando: %s %s %s" % (line[0], line[1], line[2]))
-                new_lead(line[0], line[1], line[2])
+                #print("insertando: %s %s %s" % (line[0], line[1], line[2]))
+                try:
+                    company=line[2]
+                except:
+                    flash("Registro incorrecto. Requiere minimo 3 campos (Nombre, Apellido, Empresa)")
+                else:
+                    new_lead(line[0], line[1], line[2])
                 line_count += 1
+
 
 @application.route('/')
 def main():
@@ -101,12 +107,12 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(application.config['UPLOAD_FOLDER'], filename))
             completefilename = os.path.join(application.config['UPLOAD_FOLDER'], filename)
-            flash('File successfully uploaded: %s' % filename)
             """Dar de alta en Salesforce"""
             process_file(completefilename)
+            flash('Archivo procesado exitosamente: %s' % filename)
             return redirect('/webtolead')
         else:
-            flash('Allowed file types are txt, csv')
+            flash('Tipo de archivo permitidos: txt, csv')
             return redirect(request.url)
 
 if __name__ == '__main__':

@@ -120,31 +120,31 @@ select{
   <input name="retURL" value="{{ request.url }}/ok" type="hidden">
 
 
-    <li><label>Full Name <span class="required">*</span></label>
-    <input type="text" id="first_name" name="first_name" class="field-divided" placeholder="First" /> 
-    <input type="text" id="last_name" name="last_name" class="field-divided" placeholder="Last" /></li>
+    <li><label>Nombre <span class="required">*</span></label>
+    <input type="text" id="first_name" name="first_name" class="field-divided" placeholder="Nombre" /> 
+    <input type="text" id="last_name" name="last_name" class="field-divided" placeholder="Apellido" /></li>
     <li>
         <label>Email <span class="required">*</span></label>
         <input type="email" id="email" name="email" class="field-long" />
     </li>
     <li>
-        <label>Company <span class="required">*</span></label>
+        <label>Empresa <span class="required">*</span></label>
         <input type="text" id="company" name="company" class="field-long" />
     </li>
     <li>
-        <label>Phone <span class="required">*</span></label>
+        <label>Teléfono <span class="required">*</span></label>
         <input type="text" id="phone" name="phone" class="field-long" />
     </li>
     <li>
-        <label>City <span class="required">*</span></label>
+        <label>Ciudad <span class="required">*</span></label>
         <input type="text" id="city" name="city" class="field-long" />
     </li>
     <li>
-        <label>State <span class="required">*</span></label>
+        <label>Estado <span class="required">*</span></label>
         <input type="text" id="state" name="state" class="field-long" />
     </li>
     <li>
-        <label>Zip Code <span class="required">*</span></label>
+        <label>CP <span class="required">*</span></label>
         <input type="text" id="zip" name="zip" class="field-long" />
     </li>
 
@@ -157,6 +157,7 @@ select{
 </form>
 <hr>
 <form method="post" action="/upload" enctype="multipart/form-data">
+	<h3>Cargar archivo:</h3>
     <dl>
 		<p>
 			<input type="file" name="file" autocomplete="off" required>
