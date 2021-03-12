@@ -1,0 +1,7 @@
+{
+    "login": {
+        "username": "user@email.com",
+        "password": "password",
+        "token": "token"
+    }
+}
